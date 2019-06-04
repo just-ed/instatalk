@@ -5,6 +5,7 @@ ruby '2.5.3'
 
 gem 'bootstrap'
 gem 'faker'
+gem 'jquery-rails'
 
 gem 'rails', '~> 5.2.3'
 gem 'sqlite3'
