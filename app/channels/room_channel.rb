@@ -16,6 +16,6 @@ class RoomChannel < ApplicationCable::Channel
   def speak(data)
     logger.info "RoomChannel, speak: #{data.inspect}"
 
-    ActionCable.server.broadcast "room_channel_#{@room.id}", message: data['message']
+    MessageService.new(body: data['message'], user: current_user, room: @room).perform
   end
 end
