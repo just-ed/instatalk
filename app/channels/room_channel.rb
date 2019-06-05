@@ -1,9 +1,11 @@
 class RoomChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    logger.info 'Subscribed to RoomChannel'
+    logger.info "Subscribed to RoomChannel, roomId: #{params[:roomId]}"
 
-    stream_from 'room_channel'
+    @room = Room.find(params[:roomId])
+
+    stream_from "room_channel_#{@room.id}"
   end
 
   def unsubscribed
@@ -14,6 +16,6 @@ class RoomChannel < ApplicationCable::Channel
   def speak(data)
     logger.info "RoomChannel, speak: #{data.inspect}"
 
-    ActionCable.server.broadcast 'room_channel', message: 'Hello from server'
+    ActionCable.server.broadcast "room_channel_#{@room.id}", message: data['message']
   end
 end
