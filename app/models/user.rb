@@ -1,9 +1,13 @@
 class User < ApplicationRecord
   before_create :generate_nickname
 
-  private
+  scope :online, -> { where(online: true) }
 
   def generate_nickname
     self.nickname = Faker::Name.first_name.downcase
+  end
+
+  def as_json
+    {nickname: nickname, online: online}
   end
 end
