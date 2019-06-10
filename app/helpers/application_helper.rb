@@ -1,5 +1,5 @@
 module ApplicationHelper
   def users_online
-    User.online.map(&:nickname).join(', ')
+    User.online.pluck(:nickname).join(', ')
   end
 end
